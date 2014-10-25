@@ -126,11 +126,21 @@ var testNexmoText = function() {
     req.end();
 };
 
+
+var schedule = require('node-schedule');
+var testSchedule = function() {
+    var date = new Date(2014, 9, 25, 19, 40, 0);
+    console.log('in side test schedule');
+    var j = schedule.scheduleJob(date, function() {
+        console.log('The world is going to end today.', date);
+    });
+};
+
 /**
  * List of Programs
  */
 exports.list = function(req, res) {
-    testNexmoText();
+    testSchedule();
     Program.find().sort('-created').populate('user', 'displayName').exec(function(err, programs) {
         if (err) {
             return res.status(400).send({

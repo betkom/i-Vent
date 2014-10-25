@@ -10,10 +10,10 @@ var mongoose = require('mongoose'),
  * Comment Schema
  */
 var CommentSchema = new Schema({
-	name: {
+	comment: {
 		type: String,
 		default: '',
-		required: 'Please fill Comment name',
+		required: 'Please fill Comment',
 		trim: true
 	},
 	created: {
@@ -23,6 +23,10 @@ var CommentSchema = new Schema({
 	user: {
 		type: Schema.ObjectId,
 		ref: 'User'
+	}, 
+	program: {
+		type: Schema.ObjectId,
+		ref: 'Program'
 	}
 });
 

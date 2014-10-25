@@ -56,8 +56,9 @@ var ProgramSchema = new Schema({
 	},
 
 	image: [{
-		path:{type: String,
-		default: ''
+		path:{
+			type: String,
+			default: ''
 		}
 	}],
 

@@ -6,6 +6,8 @@
 var mongoose = require('mongoose'),
 	errorHandler = require('./errors'),
 	Program = mongoose.model('Program'),
+	Comment = mongoose.model('Comment'),
+    Like = mongoose.model('Like'),
 	_ = require('lodash');
 
 /**

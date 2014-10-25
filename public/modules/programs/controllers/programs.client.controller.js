@@ -1,8 +1,8 @@
 'use strict';
 
 // Programs controller
-angular.module('programs').controller('ProgramsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Programs','ProgramsComment','Comment','ProgramsLike','Like',
-	function($scope, $stateParams, $location, Authentication, Programs, ProgramsComment, Comment, ProgramsLike, Like ) {
+angular.module('programs').controller('ProgramsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Programs','ProgramsComment','Comments','ProgramsLike','Likes',
+	function($scope, $stateParams, $location, Authentication, Programs, ProgramsComment, Comments, ProgramsLike, Likes ) {
 		$scope.authentication = Authentication;
 		var geocoder;
 

@@ -13,13 +13,13 @@ var ProgramSchema = new Schema({
 	name: {
 		type: String,
 		default: '',
-		required: 'Please fill Program name',
+		required: 'Please fill Event Title',
 		trim: true
 	},
 	ProgramDate: {
 		type: String,
 		default: '',
-		required: 'Please fill date in this format yyy/mm/dd',
+		required: 'Please fill date in this format yyyy/mm/dd',
 		trim: true
 	},
 
@@ -45,6 +45,7 @@ var ProgramSchema = new Schema({
 		type: String,
 		default: '',
 		required: 'Please fill a description',
+		trim: true
 	},
 
 	location: {
@@ -55,8 +56,9 @@ var ProgramSchema = new Schema({
 	},
 
 	image: [{
-		path:{type: String,
-		default: ''
+		path:{
+			type: String,
+			default: ''
 		}
 	}],
 
@@ -69,7 +71,6 @@ var ProgramSchema = new Schema({
 		type: Schema.ObjectId,
 		ref: 'Comment'
 	}],
-
 	created: {
 		type: Date,
 		default: Date.now

@@ -1,3 +1,10 @@
+.sign-in {
+	padding: 30px;
+	border-top: rgb(59,135,124);
+	border-top-width: 5px;
+	border-top-style: solid;
+	background: rgb(21,21,21) !important;
+}
 @media (min-width: 992px) {
 	.nav-users {
 		position: fixed;

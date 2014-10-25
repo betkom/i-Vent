@@ -8,22 +8,59 @@ var mongoose = require('mongoose'),
 	Like = mongoose.model('Like'),
 	_ = require('lodash');
 
+
+function saveLike(req, res) {
+        var like = new Like();
+        var program = req.program;
+        like.user = req.user;
+        like.program = program;
+        program.likes.push(like);
+        like.like = true;
+
+        like.save(function(err) {
+            if (err) {
+                return res.status(400).send({
+                    message: errorHandler.getErrorMessage(err)
+                });
+            } else {
+                program.save(function(err) {
+
+                    if (!err)
+                        res.jsonp(like);
+                    else
+                        res.status(400).send({
+                            message: errorHandler.getErrorMessage(err)
+                        });
+                });
+            }
+        });
+    }
+
+
 /**
  * Create a Like
  */
 exports.create = function(req, res) {
-	var like = new Like(req.body);
-	like.user = req.user;
+    Like.find({
+        program: req.program,
+        user: req.user
+    }).exec(function(err, likes) {
 
-	like.save(function(err) {
-		if (err) {
-			return res.status(400).send({
-				message: errorHandler.getErrorMessage(err)
-			});
-		} else {
-			res.jsonp(like);
-		}
-	});
+        if (err) {
+            return res.status(400).send({
+                message: errorHandler.getErrorMessage(err)
+            });
+        } else {
+            console.log(likes, likes.length);
+            if (likes.length === 0) {
+                saveLike(req, res);
+                //res.jsonp(likes);
+            } else {
+                req.like = likes[0];
+                exports.delete(req, res);
+            }
+        }
+    });
 };
 
 /**
@@ -33,30 +70,18 @@ exports.read = function(req, res) {
 	res.jsonp(req.like);
 };
 
-/**
- * Update a Like
- */
-exports.update = function(req, res) {
-	var like = req.like ;
-
-	like = _.extend(like , req.body);
-
-	like.save(function(err) {
-		if (err) {
-			return res.status(400).send({
-				message: errorHandler.getErrorMessage(err)
-			});
-		} else {
-			res.jsonp(like);
-		}
-	});
-};
 
 /**
  * Delete an Like
  */
 exports.delete = function(req, res) {
-	var like = req.like ;
+	var like = req.like;
+    var program = req.program;
+
+    var index = like && like._id ? program.likes.indexOf(like._id) : -1;
+    if (index > -1)
+        program.likes.splice(index, 1);
+
 
 	like.remove(function(err) {
 		if (err) {
@@ -72,7 +97,7 @@ exports.delete = function(req, res) {
 /**
  * List of Likes
  */
-exports.list = function(req, res) { Like.find().sort('-created').populate('user', 'displayName').exec(function(err, likes) {
+exports.list = function(req, res) { Like.find({program:req.program}).sort('-created').populate('user', 'displayName').exec(function(err, likes) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)

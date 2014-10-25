@@ -14,6 +14,7 @@ var mongoose = require('mongoose'),
 exports.create = function(req, res) {
 	var comment = new Comment(req.body);
 	comment.user = req.user;
+	comment.program = req.program;
 
 	comment.save(function(err) {
 		if (err) {
@@ -72,7 +73,8 @@ exports.delete = function(req, res) {
 /**
  * List of Comments
  */
-exports.list = function(req, res) { Comment.find().sort('-created').populate('user', 'displayName').exec(function(err, comments) {
+exports.list = function(req, res) { 
+	Comment.find({program: req.program}).sort('-created').populate('user', 'displayName').exec(function(err, comments) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)

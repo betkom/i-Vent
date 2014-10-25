@@ -1,22 +1,61 @@
 'use strict';
 
 // Programs controller
-angular.module('programs').controller('ProgramsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Programs','ProgramsComment','Comments','ProgramsLike','Likes',
-	function($scope, $stateParams, $location, Authentication, Programs, ProgramsComment, Comments, ProgramsLike, Likes ) {
-		$scope.authentication = Authentication;
-		var geocoder;
+angular.module('programs').controller('ProgramsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Programs', 'ProgramsComment', 'Comments', 'ProgramsLike', 'Likes',
+    function($scope, $stateParams, $location, Authentication, Programs, ProgramsComment, Comments, ProgramsLike, Likes) {
+        $scope.authentication = Authentication;
+        var geocoder;
 
-		$scope.loadEvents = function(){
+        $scope.checkUserLocation = function() {
+            geocoder = new google.maps.Geocoder();
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    var lat = position.coords.latitude;
+                    var lng = position.coords.longitude;
 
-		};
-		//Autocomplete
-		$scope.location = '';
+                    var latlng = new google.maps.LatLng(lat, lng);
+                    geocoder.geocode({
+
+                        'latLng': latlng
+                    }, function(results, status) {
+                        if (status == google.maps.GeocoderStatus.OK) {
+                            console.log(results);
+                            if (results[1]) {
+                                console.log(results[1].formatted_address);
+                                $scope.loadEventsInLocation(results[1].formatted_address);
+                            } else {
+                                alert('No results found');
+                            }
+                        } else {
+                            alert('Geocoder failed due to: ' + status);
+                        }
+                    });
+
+                });
+            } else {
+                alert('Geo Location is not supported');
+            }
+        };
+
+
+
+        $scope.loadEventsInLocation = function(userLocation) {
+            $scope.nearEvents=[];
+            $scope.programs = Programs.query();
+            for(var i in $scope.programs){
+                if($scope.programs[i].location === userLocation){
+                    $scope.nearEvents.push($scope.programs[i]);
+                }
+            }
+        };
+        //Autocomplete
+        $scope.location = '';
         $scope.options2 = {
             country: 'ng'
         };
         $scope.details2 = '';
 
-         //Date picker
+        //Date picker
         $scope.today = function() {
             $scope.dt = new Date();
             var curr_date = $scope.dt.getDate();
@@ -58,68 +97,70 @@ angular.module('programs').controller('ProgramsController', ['$scope', '$statePa
                     });
                 };
                 reader.readAsDataURL($scope.select[0]);
-           }
+            }
         };
 
-		// Create new Program
-		$scope.create = function() {
-			// Create new Program object
-			var program = new Programs ({
-				name: this.name,
-				category: this.category,
-				location: this.location,
-				description: this.description,
-				programTime: this.programTime,
-				programDate: this.programDate
-			});
-				program.image = $scope.stringFiles;
-			// Redirect after save
-			program.$save(function(response) {
-				$location.path('programs/' + response._id);
+        // Create new Program
+        $scope.create = function() {
+            // Create new Program object
+            var program = new Programs({
+                name: this.name,
+                category: this.category,
+                location: this.location,
+                description: this.description,
+                programTime: this.programTime,
+                programDate: this.programDate
+            });
+            program.image = $scope.stringFiles;
+            // Redirect after save
+            program.$save(function(response) {
+                $location.path('programs/' + response._id);
 
-				// Clear form fields
-				$scope.name = '';
-				$scope.location = '';
-				$scope.description = '';
-			}, function(errorResponse) {
-				$scope.error = errorResponse.data.message;
-			});
-		};
+                // Clear form fields
+                $scope.name = '';
+                $scope.location = '';
+                $scope.description = '';
+            }, function(errorResponse) {
+                $scope.error = errorResponse.data.message;
+            });
+        };
 
-		// Remove existing Program
-		$scope.remove = function( program ) {
-			if ( program ) { program.$remove();
+        // Remove existing Program
+        $scope.remove = function(program) {
+            if (program) {
+                program.$remove();
 
-				for (var i in $scope.programs ) {
-					if ($scope.programs [i] === program ) {
-						$scope.programs.splice(i, 1);
-					}
-				}
-			} else {
-				$scope.program.$remove(function() {
-					$location.path('programs');
-				});
-			}
-		};
+                for (var i in $scope.programs) {
+                    if ($scope.programs[i] === program) {
+                        $scope.programs.splice(i, 1);
+                    }
+                }
+            } else {
+                $scope.program.$remove(function() {
+                    $location.path('programs');
+                });
+            }
+        };
 
-		// Update existing Program
-		$scope.update = function() {
-			var program = $scope.program ;
+        // Update existing Program
+        $scope.update = function() {
+            var program = $scope.program;
 
-			program.$update(function() {
-				$location.path('programs/' + program._id);
-			}, function(errorResponse) {
-				$scope.error = errorResponse.data.message;
-			});
-		};
+            program.$update(function() {
+                $location.path('programs/' + program._id);
+            }, function(errorResponse) {
+                $scope.error = errorResponse.data.message;
+            });
+        };
 
-		// Find a list of Programs
-		$scope.find = function() {
-			$scope.programs = Programs.query();
-		};
+        // Find a list of Programs
+        $scope.find = function() {
+            $scope.programs = Programs.query();
+            $scope.checkUserLocation();
+        };
 
-		// Find existing Program
-		function fixDate(i) {
+        // Find existing Program
+        function fixDate(i) {
                 i = i.toString();
                 return i.length === 1 ? '0' + i : i;
             }
@@ -130,7 +171,7 @@ angular.module('programs').controller('ProgramsController', ['$scope', '$statePa
             }, function(response) {
                 $scope.qrcodeUrl = 'https://api.qrserver.com/v1/create-qr-code/?size=350x350&data=';
                 // Setting Map Position
-                try{
+                try {
                     geocoder = new google.maps.Geocoder();
                     var options = {
                         zoom: 17
@@ -149,9 +190,7 @@ angular.module('programs').controller('ProgramsController', ['$scope', '$statePa
                             map.setCenter(results[0].geometry.location);
                         }
                     });
-                }
-                catch(e0)
-                {
+                } catch (e0) {
 
                 }
                 $scope.program = $scope.programContent.program;
@@ -175,7 +214,7 @@ angular.module('programs').controller('ProgramsController', ['$scope', '$statePa
                 programId: $stateParams.programId
             });
         };
-         $scope.addComments = function() {
+        $scope.addComments = function() {
             // Create new Comment object
             var comment = new ProgramsComment({
                 comment: $scope.newComment
@@ -217,5 +256,5 @@ angular.module('programs').controller('ProgramsController', ['$scope', '$statePa
             });
         };
 
-	}
+    }
 ]);

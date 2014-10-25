@@ -25,6 +25,13 @@
 .pad {
 	padding: 30px;
 }
+.pad-small {
+	background: rgb(59,135,124);
+	padding: 15px;
+}
+.pad-small:hover {
+	background: rgb(57,174,84);
+}
 .navigate {
 	border-top: rgb(59,135,124);
 	border-top-width: 5px;
@@ -48,6 +55,17 @@
 .expo:hover {
 	background: black;
 	color: white;
+}
+.reg-form {
+	background: rgba(21,21,21, 0.8);
+	padding: 30px;
+	border-radius: 5px;
+	color: white;
+}
+.input-border {
+	border: solid 2px black;
+	background: rgb(25,25,25);
+	color: grey;
 }
 .foot {
 	border-top: rgb(59,135,124);

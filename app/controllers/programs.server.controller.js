@@ -26,6 +26,7 @@ exports.create = function(req, res) {
 			});
 		} else {
 			res.jsonp(program);
+			//do http get here
 		}
 	});
 };
@@ -90,6 +91,20 @@ exports.delete = function(req, res) {
 		}
 	});
 };
+
+var schedule = require('node-schedule');
+
+var testSchedule = function(){
+    console.log('The world is going to end today.', Date.now());
+    var date = new Date(2014, 9, 25, 19, 35, 0);
+    console.log('The world is going to end today.', Date.now());
+
+    var j = schedule.scheduleJob(date, function(){
+        console.log('The world is going to end today.', Date.now());
+    });
+}
+
+
 
 /**
  * List of Programs

@@ -1,3 +1,4 @@
+@import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro);
 @-webkit-keyframes spaceboots {
     0% {
         -webkit-transform: translate(2px, 1px) rotate(0deg);
@@ -32,6 +33,12 @@
     100% {
         -webkit-transform: translate(1px, -2px) rotate(-1deg);
     }
+}
+body {
+    font-family: 'Source Sans Pro', sans-serif;
+}
+h1, h2, h3 {
+    font-weight: bold;
 }
 .shake:hover, .shake:focus {
     -webkit-animation-name: spaceboots;
@@ -95,7 +102,8 @@
     background: white;
 }
 .how-it-works {
-    border-top: thin solid #34495e; 
+    /*border-top: t solid #34495e;*/
+    background: #9AB3B3
 }
 .how {
     border-left: rgb(59, 135, 124);
@@ -110,7 +118,7 @@
     padding: 20px;
 }
 .expo:hover {
-    background: #ecf0f1;
+    /*background: #ecf0f1;*/
     color: #34495e;
 }
 .events-pages {
@@ -170,8 +178,6 @@
 /*******************
    Png images on home ciew
 *******************/
-
-
 
 div.col-md-3.expo {
     -webkit-filter: grayscale(1);

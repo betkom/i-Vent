@@ -43,6 +43,7 @@ exports.create = function(req, res) {
             })
 		}
 	});
+
 };
 
 /**
@@ -102,6 +103,7 @@ exports.delete = function(req, res) {
             res.jsonp(program);
         }
     });
+
 };
 
 var makePhoneCall = function(phoneNumber, vxml) {
@@ -181,49 +183,50 @@ exports.createSchedule = function(req, res){
  * List of Programs
  */
 exports.list = function(req, res) {
-    Program.find().sort('-likes').populate('user', 'displayName').exec(function(err, programs) {
-        if (err) {
-            return res.status(400).send({
-                message: errorHandler.getErrorMessage(err)
-            });
-        } else {
-            res.jsonp(programs);
-        }
-    });
-};
-exports.search = function(req, res) {
-    var $or = {
-        $or: []
-    };
-    var checkQuery = function() {
-        if (req.query.location && req.query.location.length > 0) {
-            $or.$or.push({
-                location: new RegExp(req.query.location, 'i')
-            });
-        }
-        if (req.query.category && req.query.category.length > 1) {
-            $or.$or.push({
-                category: new RegExp(req.query.category, 'i')
-            });
-        }
-        if (req.query.programDate && req.query.programDate.length > 1) {
-            $or.$or.push({
-                programDate: new RegExp(req.query.programDate)
-            });
-        }
-    };
-    checkQuery();
-    Program.find($or).exec(function(err, programs) {
-        if (err) {
-            return res.status(400).send({
-                message: errorHandler.getErrorMessage(err)
-            });
-        } else {
-            res.jsonp(programs);
 
-        }
-    });
-};
+        Program.find().sort('-likes').populate('user', 'displayName').exec(function(err, programs) {
+            if (err) {
+                return res.status(400).send({
+                    message: errorHandler.getErrorMessage(err)
+                });
+            } else {
+                res.jsonp(programs);
+            }
+        });
+    };
+    exports.search = function(req, res) {
+        var $or = {
+            $or: []
+        };
+        var checkQuery = function() {
+            if (req.query.location && req.query.location.length > 0) {
+                $or.$or.push({
+                    location: new RegExp(req.query.location, 'i')
+                });
+            }
+            if (req.query.category && req.query.category.length > 1) {
+                $or.$or.push({
+                    category: new RegExp(req.query.category, 'i')
+                });
+            }
+            if (req.query.programDate && req.query.programDate.length > 1) {
+                $or.$or.push({
+                    programDate: new RegExp(req.query.programDate)
+                });
+            }
+        };
+        checkQuery();
+        Program.find($or).exec(function(err, programs) {
+            if (err) {
+                return res.status(400).send({
+                    message: errorHandler.getErrorMessage(err)
+                });
+            } else {
+                res.jsonp(programs);
+
+            }
+        });
+    };
 
 
 /**

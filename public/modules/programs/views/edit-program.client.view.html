@@ -1,16 +1,56 @@
 <section data-ng-controller="ProgramsController" data-ng-init="findOne()">
 <div class="container reg-form">
     <div class="page-header">
-        <h1>Edit Program</h1>
+        <h1>Edit Event</h1>
     </div>
-    <div class="col-md-12">
+    <div class="col-xs-offset-2 col-xs-8 col-md-offset-3 col-md-5">
         <form class="form-horizontal" data-ng-submit="update()" novalidate>
             <fieldset>
                 <div class="form-group">
-                    <label class="control-label" for="name">Name</label>
-                    <div class="controls">
-                        <input type="text" data-ng-model="program.name" id="name" class="form-control input-border" placeholder="Name" required>
-                    </div>
+                   <label class="control-label" for="name">Event Title</label>
+                        <div class="controls">
+                            <input type="text" data-ng-model="program.name" id="name" class="form-control input-border" placeholder="Name" required>
+                        </div>
+                        <label class="control-label" for="category">Event Category</label>
+                        <div class="controls">
+                            <select data-ng-model="program.category" id="category" placeholder="Choose Category" class="col-md-12 input-border">
+                                <option value="Sports" selected>Sports</option>
+                                <option value="Party">Party</option>
+                                <option value="Launch">Launches</option>
+                                <option value="Church">Religion</option>
+                                <option value="Music">Music</option>
+                                <option value="Awards">Awards</option>
+                                <option value="Church">Seminars</option>
+                                <option value="Fashion">Fashion</option>
+                                <option value="Arts">Arts</option>
+                                <option value="Others">Other Category</option>
+                            </select>
+                        </div>
+                        <label class="control-label" for="location">Event Location</label>
+                        <div class="controls">
+                            <input type="text" ng-autocomplete data-ng-model="program.location" details="details2" options="options2" id="location" class="form-control input-border" placeholder="Location" required>
+                        </div>
+
+                        <label class="control-label" for="description">Event Details</label>
+                        <div class="controls">
+                            <textarea type="text" data-ng-model="program.description" row="2" id="description" class="form-control input-border" placeholder="description" required></textarea>
+                        </div>
+                        <label class="control-label" for="programDate">Event Date</label>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="input-group">
+                                    <input type="text" data-ng-model="program.programDate" id="programDate" class="form-control input-border  datepicker" required datepicker-popup="{{format}}" is-open="opened" min-date="minDate" max-date="'2015-06-22'" datepicker-options="dateOptions" close-text="Close" />
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i>
+                                        </button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <label class="control-label" for="time">Event Time</label>
+                        <div class="controls">
+                            <input style="width:180px; background:green" type="time" id="time" name="input" data-ng-model="program.programTime" placeholder="HH:mm:ss" min="00:00:00" max="23:00:00" required />
+                        </div>
                 </div>
                 <div class="form-group">
                     <button class="btn col-md-12 pad-small" type="submit"><i class="glyphicon glyphicon-eye-open"></i>

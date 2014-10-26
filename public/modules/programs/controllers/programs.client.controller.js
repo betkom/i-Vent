@@ -51,7 +51,7 @@ angular.module('programs').controller('ProgramsController', ['$scope', '$statePa
                 $scope.programs = response;
             });
             for (var i in $scope.programs) {
-                if(myRe.test($scope.programs[i].location)){
+                if (myRe.test($scope.programs[i].location)) {
                     $scope.nearEvents.push($scope.programs[i]);
                 }
             }
@@ -163,6 +163,7 @@ angular.module('programs').controller('ProgramsController', ['$scope', '$statePa
                 $scope.error = errorResponse.data.message;
             });
         };
+
 
         // Find a list of Programs
         $scope.find = function() {

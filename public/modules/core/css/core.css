@@ -88,6 +88,9 @@ h1, h2, h3 {
 .pad-div {
     margin: 0 16%;
 }
+.pad-divs {
+	margin: 0 10%;
+}
 .nav-style {
     border-bottom: rgb(59, 135, 124);
     border-bottom-width: 5px;

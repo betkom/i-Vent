@@ -1,14 +1,29 @@
 <section data-ng-controller="ProgramsController" data-ng-init="find()">
-    <div class="events-pages row background-style">
+    <div data-ng-if="nearEvents.length > 0">
+        <div class="page-header">
+            <h1>Events Near You</h1>
+        </div>
+        <div class="col-md-12 row pad-divs">
+        <div class="list-group">
+            <a data-ng-repeat="event in nearEvents" data-ng-href="#!/programs/{{program._id}}" class="list-group-item col-md-3 shake" style="margin:5px;background:rgb(80,158,224)">
+                <div style="height:180px;width:100%;background: url({{program.image[0].path}}) top center no-repeat;background-size:cover;margin:0px auto;">
+                </div>
+                <small class="list-group-item-text">
+                    Posted on
+                    <span data-ng-bind="program.created | date:'medium'"></span>
+                    Location : 
+                    <span data-ng-bind="event.location"></span>
+                </small>
+                <h4 class="list-group-item-heading" data-ng-bind="event.name"></h4>
+            </a>
+        </div>
+        </div>
+    </div>
+    <div class="events-pages row background-style pad">
         <div class="page-header">
             <h1>All Events</h1>
         </div>
-        <div data-ng-if="nearEvents.length > 0">
-            Events Near You
-            <div data-ng-repeat="event in nearEvents" data-ng-href="#!/programs/{{program._id}}">
-                {{event.location}} {{event.name}} {{event.programTime}} {{event.programDate | date: 'medium'}}
-            </div>
-        </div>
+        <div class="col-md-12 row pad-divs">
         <div class="list-group">
             <a data-ng-repeat="program in programs" data-ng-href="#!/programs/{{program._id}}" class="list-group-item col-md-3 shake" style="margin:5px;background:rgb(80,158,224)">
                 <div style="height:180px;width:100%;background: url({{program.image[0].path}}) top center no-repeat;background-size:cover;margin:0px auto;">
@@ -19,6 +34,7 @@
                 </small>
                 <h4 class="list-group-item-heading" data-ng-bind="program.name"></h4>
             </a>
+        </div>
         </div>
         <div class="alert alert-warning text-center" data-ng-hide="!programs.$resolved || programs.length">
             No Events yet, why don't you <a href="/#!/programs/create">create one</a>?

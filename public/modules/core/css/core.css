@@ -118,7 +118,6 @@ h1, h2, h3 {
     padding: 20px;
 }
 .expo:hover {
-    /*background: #ecf0f1;*/
     color: #34495e;
 }
 .events-pages {
@@ -126,15 +125,14 @@ h1, h2, h3 {
     padding: 5%;
 }
 .reg-form {
-    background: rgb(45, 62, 82);
+    background: #eee;
     padding: 5%;
     border-radius: 5px;
-    color: white;
+    color: #333;
 }
 .input-border {
-    border: solid 2px rgb(40, 55, 75);
-    background: rgb(53, 73, 96);
-    color: grey;
+    border: solid 1px #ccc;
+    color: #333;
 }
 .foot {
     border-top: rgb(59, 135, 124);

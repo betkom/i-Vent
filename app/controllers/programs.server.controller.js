@@ -176,7 +176,7 @@ exports.createSchedule = function(req, res){
  * List of Programs
  */
 exports.list = function(req, res) {
-<<<<<<< HEAD
+
         Program.find().sort('-likes').populate('user', 'displayName').exec(function(err, programs) {
             if (err) {
                 return res.status(400).send({

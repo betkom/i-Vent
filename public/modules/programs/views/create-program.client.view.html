@@ -1,70 +1,71 @@
 <section data-ng-controller="ProgramsController">
-<div class="container reg-form col-md-8 pad-div">
-    <div class="page-header">
-        <h1>New Event</h1>
-    </div>
-    <div class="col-md-12">
-        <form class="form-horizontal" data-ng-submit="create()" novalidate>
-            <fieldset>
-                <div class="form-group">
-                    <label class="control-label" for="name">Event Title</label>
-                    <div class="controls">
-                        <input type="text" data-ng-model="name" id="name" class="form-control input-border" placeholder="Name" required>
-                    </div>
-                    <label class="control-label" for="category">Event Category</label>
-                    <div class="controls">
-                        <select data-ng-model="category" id="category" placeholder="Choose Category" class="col-md-12 input-border">
-                            <option value="Sports" selected>Sports</option>
-                            <option value="Party">Party</option>
-                            <option value="Launch">Launches</option>
-                            <option value="Church">Religion</option>
-                            <option value="Music">Music</option>
-                            <option value="Awards">Awards</option>
-                            <option value="Church">Seminars</option>
-                            <option value="Fashion">Fashion</option>
-                            <option value="Arts">Arts</option>
-                            <option value="Others">Other Category</option>
-                        </select>
-                    </div>
-                    <label class="control-label" for="location">Event Location</label>
-                    <div class="controls">
-                        <input type="text" ng-autocomplete data-ng-model="location" details="details2" options="options2" id="location" class="form-control input-border" placeholder="Location" required>
-                    </div>
+    <div class="container reg-form col-md-8 pad-div">
+        <div class="page-header">
+            <h1>New Event</h1>
+        </div>
+        <div class="col-md-12">
+            <form class="form-horizontal" data-ng-submit="create()" novalidate>
+                <fieldset>
+                    <div class="form-group">
+                        <label class="control-label" for="name">Event Title</label>
+                        <div class="controls">
+                            <input type="text" data-ng-model="name" id="name" class="form-control input-border" placeholder="Name" required>
+                        </div>
+                        <label class="control-label" for="category">Event Category</label>
+                        <div class="controls">
+                            <select data-ng-model="category" id="category" placeholder="Choose Category" class="col-md-12 input-border">
+                                <option value="Sports" selected>Sports</option>
+                                <option value="Party">Party</option>
+                                <option value="Launch">Launches</option>
+                                <option value="Church">Religion</option>
+                                <option value="Music">Music</option>
+                                <option value="Awards">Awards</option>
+                                <option value="Church">Seminars</option>
+                                <option value="Fashion">Fashion</option>
+                                <option value="Arts">Arts</option>
+                                <option value="Others">Other Category</option>
+                            </select>
+                        </div>
+                        <label class="control-label" for="location">Event Location</label>
+                        <div class="controls">
+                            <input type="text" ng-autocomplete data-ng-model="location" details="details2" options="options2" id="location" class="form-control input-border" placeholder="Location" required>
+                        </div>
 
-                    <label class="control-label" for="description">Event Details</label>
-                    <div class="controls">
-                        <textarea type="text" data-ng-model="description" row="2" id="description" class="form-control input-border" placeholder="description" required></textarea>
-                    </div>
-                    <label class="control-label" for="programDate">Event Date</label>
+                        <label class="control-label" for="description">Event Details</label>
+                        <div class="controls">
+                            <textarea type="text" data-ng-model="description" row="2" id="description" class="form-control input-border" placeholder="description" required></textarea>
+                        </div>
+                        <label class="control-label" for="programDate">Event Date</label>
                         <div class="row">
                             <div class="col-md-12">
-                                    <div class="input-group">
-                                        <input type="text" data-ng-model="programDate" id="programDate" class="form-control input-border  datepicker" required datepicker-popup="{{format}}"is-open="opened" min-date="minDate" max-date="'2015-06-22'" datepicker-options="dateOptions" close-text="Close"/>
-                                          <span class="input-group-btn">
-                                            <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
-                                          </span>
-                                    </div>
+                                <div class="input-group">
+                                    <input type="text" data-ng-model="programDate" id="programDate" class="form-control input-border  datepicker" required datepicker-popup="{{format}}" is-open="opened" min-date="minDate" max-date="'2015-06-22'" datepicker-options="dateOptions" close-text="Close" />
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i>
+                                        </button>
+                                    </span>
+                                </div>
                             </div>
                         </div>
-                    <label class="control-label" for="time">Event Time</label>
-                    <div class="controls">
-                        <input type="text" data-ng-model="programTimeHour" id="time" class="form-control input-border" placeholder="00:00" required>
+                        <label class="control-label" for="time">Event Time</label>
+                        <div class="controls">
+                            <input style="width:180px; background:green" type="time" id="time" name="input" data-ng-model="programTime" placeholder="HH:mm:ss" min="00:00:00" max="23:00:00" required />
+                        </div>
+                        <label class="control-label" for="image">Event Image</label>
+                        <input type="file" id="image" data-ng-file-select="onFileSelect($files)" accept="image/*">
                     </div>
-                    <label class="control-label" for="image">Event Image</label>
-                    <input type="file" id="image" data-ng-file-select="onFileSelect($files)" accept="image/*">
-                </div>
 
-                <div class="form-group">
-                    <button class="btn col-md-12 pad-small" type="submit"><i class="glyphicon glyphicon-eye-open"></i>
-                        PUBLISH!
-                    </button>
-                </div>
-                <div data-ng-show="error" class="text-danger">
-                    <strong data-ng-bind="error"></strong>
-                </div>
-            </fieldset>
-        </form>
+                    <div class="form-group">
+                        <button class="btn col-md-12 pad-small" type="submit"><i class="glyphicon glyphicon-eye-open"></i>
+                            PUBLISH!
+                        </button>
+                    </div>
+                    <div data-ng-show="error" class="text-danger">
+                        <strong data-ng-bind="error"></strong>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
     </div>
-</div>
 </section>
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=places"></script>

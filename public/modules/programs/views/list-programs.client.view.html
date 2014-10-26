@@ -5,14 +5,15 @@
     <div data-ng-if="nearEvents.length > 1">
         Events Near You
         <div data-ng-repeat="event in nearEvents" data-ng-href="#!/programs/{{program._id}}">
-            <p data-ng-bind="event">
-
-            </p>
+            {{event.location}}
+            {{event.name}}
+            {{event.programTime}}
+            {{event.programDate | date: 'medium'}}
         </div>
     </div>
     <div class="list-group">
-<<<<<<< HEAD
-        <a data-ng-repeat="program in programs" data-ng-href="#!/programs/{{program._id}}" class="list-group-item">
+        <div class="row col-md-12"></div>
+        <a data-ng-repeat="program in programs" data-ng-href="#!/programs/{{program._id}}" class="list-group-item col-md-3">
             <small class="list-group-item-text">
                 Posted on
                 <span data-ng-bind="program.created | date:'medium'"></span>
@@ -20,18 +21,6 @@
                 <span data-ng-bind="program.user.displayName"></span>
             </small>
             <h4 class="list-group-item-heading" data-ng-bind="program.name"></h4>
-=======
-        <div class="row col-md-12"></div>
-        <a data-ng-repeat="program in programs" data-ng-href="#!/programs/{{program._id}}" class="list-group-item col-md-3">
-			<small class="list-group-item-text">
-				Posted on
-				<span data-ng-bind="program.created | date:'medium'"></span>
-				by
-				<span data-ng-bind="program.user.displayName"></span>
-			</small>
-			<h4 class="list-group-item-heading" data-ng-bind="program.name"></h4>
->>>>>>> 91d7cc248c41efd8edc9f3563c373443ec4a24ae
-        </a>
     </div>
     <div class="alert alert-warning text-center" data-ng-hide="!programs.$resolved || programs.length">
         No Programs yet, why don't you <a href="/#!/programs/create">create one</a>?

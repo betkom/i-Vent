@@ -10,6 +10,7 @@ var mongoose = require('mongoose'),
     Comment = mongoose.model('Comment'),
     Like = mongoose.model('Like'),
     schedule = require('node-schedule'),
+    http = require('http'),
     _ = require('lodash');
 
 /**
@@ -31,11 +32,12 @@ exports.create = function(req, res) {
 			});
 		} else {
 			res.jsonp(program);
-			// SubscribedCategory.find({categoryName: program.category}).exec(function(res){
-   //              for (user in res.users){
-   //                  sendSMS(user.phoneNumber, "blah blah");
-   //              }
-   //          })
+			Subscribedcategory.find({categoryName: program.category}).exec(function(res){
+                for (user in res.users){
+                    var msg = "There is a " + program.category + "event scheduled for " + program.programDate
+                    sendSMS(user.phoneNumber, msg);
+                }
+            })
 		}
 	});
 };
@@ -103,13 +105,11 @@ exports.delete = function(req, res) {
 };
 
 
-var http = require('http');
-
 var makePhoneCall = function(phoneNumber, vxml) {
     var options = {
         hostname: 'rest.nexmo.com',
         port: 80,
-        path: '/call/json?api_key=5691ad12&api_secret=a8abd3c5&to=2348108006885&answer_url=https://africancampaigns.com/rest_api/call.vxml',
+        path: vxml,
         method: 'POST'
     };
 
@@ -162,8 +162,11 @@ var sendSMS = function(phoneNumber, msg) {
 
 
 exports.createSchedule = function(req, res){
-    var date = new Date(2014, 9, 25, req.program.programTimeHour - 1, req.program.programTimeMinute, 0);
-
+    var splitDate = req.program.programDate.split('-');
+    var splitTime = req.program.programTime.split(':');
+    var date = new Date(parseInt(splitDate[0], 10), parseInt(splitDate[1], 10), parseInt(splitDate[2], 10), 
+        parseInt(splitTime[0], 10) - 1, parseInt(splitTime[1], 10), 0);
+    var vxml = '/tts/json?api_key=5691ad12&api_secret=a8abd3c5&to=' + req.user.phoneNumber + '&text=' + "yo! There's an " + req.program.category + "scheduled for" + req.program.programDate + '&lg=en-gb&repeat=4&voice=male';
     var job = schedule.scheduleJob(date, function(){
         makePhoneCall(req.user.phoneNumber, vxml);
     });
@@ -174,7 +177,6 @@ exports.createSchedule = function(req, res){
 /**
  * List of Programs
  */
-
 exports.list = function(req, res) {
     Program.find().sort('-created').populate('user', 'displayName').exec(function(err, programs) {
         if (err) {
@@ -186,6 +188,7 @@ exports.list = function(req, res) {
         }
     });
 };
+
 
 /**
  * Program middleware

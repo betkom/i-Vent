@@ -24,13 +24,13 @@ var ProgramSchema = new Schema({
 	},
 
 	programTimeMinute: {
-	type: String,
+	type: Number,
 	default: '',
 	required: 'Please fill minutes mm',
 	},
 
 	programTimeHour: {
-	type: String,
+	type: Number,
 	default: '',
 	required: 'Please fill hour hh',
 	trim: true

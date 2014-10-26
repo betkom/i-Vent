@@ -9,6 +9,7 @@ var mongoose = require('mongoose'),
     Program = mongoose.model('Program'),
     Comment = mongoose.model('Comment'),
     Like = mongoose.model('Like'),
+    schedule = require('node-schedule'),
     _ = require('lodash');
 
 /**
@@ -16,7 +17,7 @@ var mongoose = require('mongoose'),
  */
 exports.create = function(req, res) {
 
-    // Sets default image
+    //Sets default image
     req.body.image = req.body.image && req.body.image[0] && req.body.image[0].length > 0 ? req.body.image : [{
         path: '/modules/core/img/loaders/defaultimage.png'
     }];
@@ -30,7 +31,11 @@ exports.create = function(req, res) {
 			});
 		} else {
 			res.jsonp(program);
-			//do http get here
+			// SubscribedCategory.find({categoryName: program.category}).exec(function(res){
+   //              for (user in res.users){
+   //                  sendSMS(user.phoneNumber, "blah blah");
+   //              }
+   //          })
 		}
 	});
 };
@@ -100,7 +105,7 @@ exports.delete = function(req, res) {
 
 var http = require('http');
 
-var testNexmo = function() {
+var makePhoneCall = function(phoneNumber, vxml) {
     var options = {
         hostname: 'rest.nexmo.com',
         port: 80,
@@ -127,11 +132,11 @@ var testNexmo = function() {
     req.end();
 };
 
-var testNexmoText = function() {
+var sendSMS = function(phoneNumber, msg) {
     var options = {
         hostname: 'rest.nexmo.com',
         port: 80,
-        path: '/sms/json?api_key=5691ad12&api_secret=a8abd3c5&&from=iVent&to=2348108006885&text=D%C3%A9j%C3%A0%2Bvu',
+        path: '/sms/json?api_key=5691ad12&api_secret=a8abd3c5&&from=iVent&to=' + phoneNumber+ '&text=' + msg,
         method: 'POST'
     };
 
@@ -155,24 +160,12 @@ var testNexmoText = function() {
 };
 
 
-var schedule = require('node-schedule');
-var testSchedule = function() {
-    var date = new Date(2014, 9, 25, 19, 40, 0);
-    console.log('in side test schedule');
-    var j = schedule.scheduleJob(date, function() {
-        console.log('The world is going to end today.', date);
-    });
-};
 
-var schedule = require('node-schedule');
+exports.createSchedule = function(req, res){
+    var date = new Date(2014, 9, 25, req.program.programTimeHour - 1, req.program.programTimeMinute, 0);
 
-var testSchedule = function(){
-    console.log('The world is going to end today.', Date.now());
-    var date = new Date(2014, 9, 25, 19, 35, 0);
-    console.log('The world is going to end today.', Date.now());
-
-    var j = schedule.scheduleJob(date, function(){
-        console.log('The world is going to end today.', Date.now());
+    var job = schedule.scheduleJob(date, function(){
+        makePhoneCall(req.user.phoneNumber, vxml);
     });
 }
 

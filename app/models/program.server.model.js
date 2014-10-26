@@ -16,23 +16,23 @@ var ProgramSchema = new Schema({
 		required: 'Please fill Event Title',
 		trim: true
 	},
-	ProgramDate: {
+	programDate: {
 		type: String,
 		default: '',
 		required: 'Please fill date in this format yyyy/mm/dd',
 		trim: true
 	},
 
-	ProgramTimeMinute: {
+	programTimeMinute: {
 	type: String,
 	default: '',
 	required: 'Please fill minutes mm',
 	},
 
-	ProgramTimeHour: {
+	programTimeHour: {
 	type: String,
 	default: '',
-	required: 'Please fill minutes mm',
+	required: 'Please fill hour hh',
 	trim: true
 	},
 

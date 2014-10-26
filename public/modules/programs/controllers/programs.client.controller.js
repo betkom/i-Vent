@@ -57,6 +57,7 @@ angular.module('programs').controller('ProgramsController', ['$scope', '$statePa
                         path: e.target.result
                     });
                 };
+                console.log($scope.stringFiles);
                 reader.readAsDataURL($scope.select[0]);
            }
         };
@@ -69,7 +70,8 @@ angular.module('programs').controller('ProgramsController', ['$scope', '$statePa
 				category: this.category,
 				location: this.location,
 				description: this.description,
-				programTime: this.programTime,
+				programTimeMinute: this.programTime,
+                programTimeHour: "70",
 				programDate: this.programDate
 			});
 				program.image = $scope.stringFiles;

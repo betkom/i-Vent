@@ -9,10 +9,7 @@ var mongoose = require('mongoose'),
     Program = mongoose.model('Program'),
     Comment = mongoose.model('Comment'),
     Like = mongoose.model('Like'),
-<<<<<<< HEAD
-=======
     schedule = require('node-schedule'),
->>>>>>> a7ed10675448732fadd741f7d1330d00b685f3c0
     _ = require('lodash');
 
 /**
@@ -20,24 +17,6 @@ var mongoose = require('mongoose'),
  */
 exports.create = function(req, res) {
 
-<<<<<<< HEAD
-    // Sets default image
-    req.body.image = req.body.image && req.body.image[0] && req.body.image[0].length > 0 ? req.body.image : [{
-        path: '/modules/core/img/loaders/defaultimage.png'
-    }];
-    var program = new Program(req.body);
-    program.user = req.user;
-
-    program.save(function(err) {
-        if (err) {
-            return res.status(400).send({
-                message: errorHandler.getErrorMessage(err)
-            });
-        } else {
-            res.jsonp(program);
-        }
-    });
-=======
     //Sets default image
     req.body.image = req.body.image && req.body.image[0] && req.body.image[0].length > 0 ? req.body.image : [{
         path: '/modules/core/img/loaders/defaultimage.png'
@@ -59,7 +38,6 @@ exports.create = function(req, res) {
    //          })
 		}
 	});
->>>>>>> a7ed10675448732fadd741f7d1330d00b685f3c0
 };
 
 /**
@@ -93,7 +71,6 @@ exports.read = function(req, res) {
  */
 exports.update = function(req, res) {
     var program = req.program;
-
     program = _.extend(program, req.body);
 
     program.save(function(err) {
@@ -122,7 +99,6 @@ exports.delete = function(req, res) {
             res.jsonp(program);
         }
     });
-<<<<<<< HEAD
 };
 
 
@@ -190,8 +166,6 @@ var testSchedule = function() {
     var j = schedule.scheduleJob(date, function() {
         console.log('The world is going to end today.', date);
     });
-=======
->>>>>>> a7ed10675448732fadd741f7d1330d00b685f3c0
 };
 
 

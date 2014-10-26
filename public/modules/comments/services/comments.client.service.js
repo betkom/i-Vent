@@ -11,3 +11,15 @@ angular.module('comments').factory('Comments', ['$resource',
 		});
 	}
 ]);
+
+angular.module('core').factory('Subscribe', ['$resource',
+	function($resource) {
+		return $resource('/subscribedcategories', {
+		}, {
+			update: {
+				method: 'PUT'
+			}
+		});
+	}
+]);
+

@@ -2,11 +2,20 @@
 
 // Programs controller
 
-angular.module('programs').controller('ProgramsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Programs', 'ProgramsComment', 'Comments', 'ProgramsLike', 'Likes',
-    function($scope, $stateParams, $location, Authentication, Programs, ProgramsComment, Comments, ProgramsLike, Likes) {
+angular.module('programs').controller('ProgramsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Programs', 'ProgramsComment', 'Comments', 'ProgramsLike', 'Likes', 'RSVP',
+    function($scope, $stateParams, $location, Authentication, Programs, ProgramsComment, Comments, ProgramsLike, Likes, RSVP) {
         $scope.authentication = Authentication;
         var geocoder;
         $scope.makeComment = false;
+
+        $scope.doRSVP = function(id){
+            RSVP.schedule({programId: id}, function(res){
+                console.log(res);
+            },function(res){
+                console.log(res);
+            });
+        }
+
 
         $scope.checkUserLocation = function() {
             console.log('running check user');

@@ -38,6 +38,21 @@ angular.module('programs').factory('ProgramsLike', ['$resource',
         });
     }
 ]);
+angular.module('programs').factory('RSVP', ['$resource',
+    function($resource) {
+        return $resource('/programs/:programId/registerRSVP', {
+            programId: '@program',
+        }, {
+            schedule: {
+                method: 'GET'
+            }
+
+        });
+    }
+]);
+
+
+
 
 angular.module('core').factory('Search', ['$http','$location', function($http,$location) {   
     var SearchObject = {};

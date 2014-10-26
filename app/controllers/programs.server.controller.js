@@ -8,6 +8,7 @@ var mongoose = require('mongoose'),
     Program = mongoose.model('Program'),
     Comment = mongoose.model('Comment'),
     Like = mongoose.model('Like'),
+    Subscribedcategory = mongoose.model('Subscribedcategory'),
     schedule = require('node-schedule'),
     http = require('http'),
     _ = require('lodash');
@@ -32,8 +33,11 @@ exports.create = function(req, res) {
 		} else {
 			res.jsonp(program);
 			Subscribedcategory.find({categoryName: program.category}).exec(function(res){
+                if(res === null && !res){
+                    return;
+                }
                 for (user in res.users){
-                    var msg = "There is a " + program.category + "event scheduled for " + program.programDate
+                    var msg = "There%20is%20a " + program.category + "event%20scheduled%20for%20" + program.programDate;
                     sendSMS(user.phoneNumber, msg);
                 }
             })
@@ -159,12 +163,15 @@ var sendSMS = function(phoneNumber, msg) {
 exports.createSchedule = function(req, res){
     var splitDate = req.program.programDate.split('-');
     var splitTime = req.program.programTime.split(':');
-    var date = new Date(parseInt(splitDate[0], 10), parseInt(splitDate[1], 10), parseInt(splitDate[2], 10), 
-        parseInt(splitTime[0], 10) - 1, parseInt(splitTime[1], 10), 0);
-    var vxml = '/tts/json?api_key=5691ad12&api_secret=a8abd3c5&to=' + req.user.phoneNumber + '&text=' + "yo! There's an " + req.program.category + 'scheduled for' + req.program.programDate + '&lg=en-gb&repeat=4&voice=male';
+    var date = new Date(parseInt(splitDate[0], 10), parseInt(splitDate[1], 10)-1, parseInt(splitDate[2], 10)-1, 
+        parseInt(splitTime[0], 10), parseInt(splitTime[1], 10), 0);
+    var r = req.location.split(" ");
+    var vxml = "/tts/json?api_key=5691ad12&api_secret=a8abd3c5&to="+ req.user.phoneNumber +"&text="+"You%20Have%20an%20event%20in%20an%20hours%20time%20at%20"+r[0]+"&lg=en-gb&repeat=5"
     var job = schedule.scheduleJob(date, function(){
         makePhoneCall(req.user.phoneNumber, vxml);
     });
+    console.log("done");
+    res.jsonp({});
 }
 
 

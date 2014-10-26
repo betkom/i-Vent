@@ -22,7 +22,59 @@
 				</ul>
 				<a ng-switch-default href="/#!/{{item.link}}" data-ng-bind="item.title"></a>
 			</li>
+
+
+			<li class="btn-group" dropdown is-open="status.isopen">
+                <button type="button" class="btn btn-info input-sm" ng-if="betNotifications.length==0">
+                    Subscribe Event Categpories
+                </button>
+
+                <button type="button" class="btn btn-success dropdown-toggle input-sm" ng-if="betNotifications.length > 0">
+                    Subscribe Event Categpories
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                    <li>
+                        <a>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
 		</ul>
+		
+
+
+		<ul class="nav navbar-nav" data-ng-show="authentication.user">
+			<li class="dropdown">
+				<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+					<span>Subscribe Event Category</span> <b class="caret"></b>
+				</a>
+				<ul class="dropdown-menu">
+					<li style="cursor:pointer"><a value="Sports" ng-click="subscribe(this.value)" selected>Sports</a></li>
+					
+					<li style="cursor:pointer"><a value="Party" ng-click="subscribe(this.value)">Party</a></li>
+                    
+                    <li style="cursor:pointer"><a value="Launch" ng-click="subscribe(this.value)">Launches</a></li>
+                    
+                    <li style="cursor:pointer"><a value="Church" ng-click="subscribe(this.value)">Religion</a></li>
+                    
+                    <li style="cursor:pointer"><a value="Music" ng-click="subscribe(this.value)">Music</a></li>
+                    
+                    <li style="cursor:pointer"><a value="Awards" ng-click="subscribe(this.value)">Awards</a></li>
+                    
+                    <li style="cursor:pointer"><a value="Church" ng-click="subscribe(this.value)">Seminars</a></li>
+                    
+                    <li style="cursor:pointer"><a value="Fashion" ng-click="subscribe(this.value)">Fashion</a></li>
+                    
+                    <li style="cursor:pointer"><a value="Arts" ng-click="subscribe(this.value)">Arts</a></li>
+                    
+                    <li style="cursor:pointer"><a value="Others" ng-click="subscribe(this.value)">Other Category</a></li>
+				</ul>
+			</li>
+		</ul>
+
+
 		<ul class="nav navbar-nav navbar-right" data-ng-hide="authentication.user">
 			<li ui-route="/signup" ng-class="{active: $uiRoute}">
 				<a href="/#!/signup">Sign Up</a>

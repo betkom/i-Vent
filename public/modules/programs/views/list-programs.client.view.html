@@ -1,5 +1,5 @@
 <section data-ng-controller="ProgramsController" data-ng-init="find()">
-<div class="events-pages row">
+<div class="events-pages row col-md-12">
     <div class="page-header">
         <h1>All Events</h1>
     </div>
@@ -11,7 +11,7 @@
             </p>
         </div>
     </div>
-    <div class="list-group">
+    <div class="list-group row">
         <a data-ng-repeat="program in programs" data-ng-href="#!/programs/{{program._id}}" class="list-group-item col-md-3 shake" style="margin:5px;background:rgb(80,158,224)">
             <div style="height:180px;width:100%;background: url({{program.image[0].path}}) top center no-repeat;background-size:cover;margin:0px auto;">
             </div>

@@ -20,6 +20,7 @@
 	-webkit-animation-timing-function: linear;
 }
 .shake {
+	box-shadow: 5px 5px 5px #888888;
 	display:inline-block
 }
 
@@ -59,6 +60,13 @@
 }
 .pad-div {
 	margin: 0 16%;
+}
+.nav-style {
+	border-bottom: rgb(59,135,124);
+	border-bottom-width: 5px;
+	border-bottom-style: solid;
+	width: 100%;
+	padding: 0 30px;
 }
 .navigate {
 	border-top: rgb(59,135,124);

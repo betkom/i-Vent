@@ -1,4 +1,6 @@
 <section data-ng-controller="ProgramsController" data-ng-init="findOne()">
+<div class="events-pages row">
+<div class="col-md-6">
 	<div class="page-header">
 		<h1 data-ng-bind="program.name"></h1>
 	</div>
@@ -16,6 +18,67 @@
 			<span data-ng-bind="program.created | date:'mediumDate'"></span>
 			by
 			<span data-ng-bind="program.user.displayName"></span>
+			<span data-ng-bind="program.likes.length"></span> Like(s)
+			<span data-ng-bind="program.comments.length"></span> Thing(s) said
 		</em>
 	</small>
+	<div>
+        <img class="img-thumbnail shake" src="{{program.image[0].path}}" alt="" width="150px" height="150px" style="background:rgb(80,158,224)"/>
+    </div>
+    <p>Event Type: 
+		<span class="lead" data-ng-bind="program.category"></span>
+    </p>
+    <p class="medium description" data-ng-bind="program.description"></p>
+    <p>{{"Event Date: "}}
+        <span class="medium programDate" data-ng-bind="program.programDate|date: 'shortDate'"></span>
+	</p>
+	<p>Event Time: 
+	<span class="medium programTime" data-ng-bind="program.programTime"></span>
+	</p>
+	<div class="row pad">
+		<button class="btn col-md-2 pad-small" ng-click="doLike()" style="margin-right:20px"><i class="glyphicon glyphicon-heart"></i>
+            Like
+        </button>
+        <button class="btn col-md-6 pad-small"ng-click="openCommentForm()"><i class="glyphicon glyphicon-tint"></i>
+            Say Something About This Event
+        </button>
+	</div>
+	
+	<div class="list-group">
+        <div data-ng-repeat="comment in comments"  class="list-group-item">
+        	<p class="lead" data-ng-bind="comment.comment"></p>
+			<small class="list-group-item-text">
+				Posted on
+				<span data-ng-bind="comment.created | date:'medium'"></span>
+				by
+				<span data-ng-bind="comment.user.displayName"></span>
+			</small>
+        </div>
+    </div>
+	</br>
+	<div ng-show="makeComment"></br>
+        <div class="form-group"></br>
+            <div class="controls col-md-6"></br>
+            	<label class="control-label" for="comment">Say Something</label>
+                <textarea type="text" data-ng-model="newComment" row="2" id="comment" class="form-control input-border" placeholder="Comment" required></textarea></br>
+                <button class="btn col-xs-6 pad-small" ng-click="addComments()"><i class="glyphicon glyphicon-tint"></i>
+    				Say It!
+				</button>
+            </div>
+        </div>
+	</div>
+</div>
+	<div class=" col-xs-12 col-md-6 map" data-ng-if="authentication.user._id">
+    	<h2>Where?</h2>
+        <div class="mapResult" id="map_canvas">Where?
+        </div>
+        <div class="qrCode" data-ng-if="authentication.user._id">
+            <h3>Share QR Code</h3>
+            <img class="qrCode1" ng-src="{{qrcodeUrl}}" alt="QR code" />
+        </div>
+    </div>
+</div>
+<div class="row foot text-center pad">
+	<br>&copy;2014 The i-Vent Team | Andela
+</div>
 </section>

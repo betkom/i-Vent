@@ -4,7 +4,6 @@
  * Module dependencies.
  */
 var mongoose = require('mongoose'),
-
     errorHandler = require('./errors'),
     Program = mongoose.model('Program'),
     Comment = mongoose.model('Comment'),
@@ -46,7 +45,6 @@ exports.create = function(req, res) {
  * Show the current Program
  */
 exports.read = function(req, res) {
-
     if (req.user) {
         Like.find({
             user: req.user,
@@ -68,14 +66,13 @@ exports.read = function(req, res) {
 };
 
 
+
 /**
  * Update a Program
  */
 exports.update = function(req, res) {
     var program = req.program;
-
     program = _.extend(program, req.body);
-
     program.save(function(err) {
         if (err) {
             return res.status(400).send({
@@ -92,7 +89,6 @@ exports.update = function(req, res) {
  */
 exports.delete = function(req, res) {
     var program = req.program;
-
     program.remove(function(err) {
         if (err) {
             return res.status(400).send({
@@ -103,7 +99,6 @@ exports.delete = function(req, res) {
         }
     });
 };
-
 
 var makePhoneCall = function(phoneNumber, vxml) {
     var options = {
@@ -166,7 +161,7 @@ exports.createSchedule = function(req, res){
     var splitTime = req.program.programTime.split(':');
     var date = new Date(parseInt(splitDate[0], 10), parseInt(splitDate[1], 10), parseInt(splitDate[2], 10), 
         parseInt(splitTime[0], 10) - 1, parseInt(splitTime[1], 10), 0);
-    var vxml = '/tts/json?api_key=5691ad12&api_secret=a8abd3c5&to=' + req.user.phoneNumber + '&text=' + "yo! There's an " + req.program.category + "scheduled for" + req.program.programDate + '&lg=en-gb&repeat=4&voice=male';
+    var vxml = '/tts/json?api_key=5691ad12&api_secret=a8abd3c5&to=' + req.user.phoneNumber + '&text=' + "yo! There's an " + req.program.category + 'scheduled for' + req.program.programDate + '&lg=en-gb&repeat=4&voice=male';
     var job = schedule.scheduleJob(date, function(){
         makePhoneCall(req.user.phoneNumber, vxml);
     });
@@ -174,17 +169,51 @@ exports.createSchedule = function(req, res){
 
 
 
+
 /**
  * List of Programs
  */
 exports.list = function(req, res) {
-    Program.find().sort('-created').populate('user', 'displayName').exec(function(err, programs) {
+    Program.find().sort('-likes').populate('user', 'displayName').exec(function(err, programs) {
         if (err) {
             return res.status(400).send({
                 message: errorHandler.getErrorMessage(err)
             });
         } else {
             res.jsonp(programs);
+        }
+    });
+};
+exports.search = function(req, res) {
+    var $or = {
+        $or: []
+    };
+    var checkQuery = function() {
+        if (req.query.location && req.query.location.length > 0) {
+            $or.$or.push({
+                location: new RegExp(req.query.location, 'i')
+            });
+        }
+        if (req.query.category && req.query.category.length > 1) {
+            $or.$or.push({
+                category: new RegExp(req.query.category, 'i')
+            });
+        }
+        if (req.query.programDate && req.query.programDate.length > 1) {
+            $or.$or.push({
+                programDate: new RegExp(req.query.programDate)
+            });
+        }
+    };
+    checkQuery();
+    Program.find($or).exec(function(err, programs) {
+        if (err) {
+            return res.status(400).send({
+                message: errorHandler.getErrorMessage(err)
+            });
+        } else {
+            res.jsonp(programs);
+
         }
     });
 };

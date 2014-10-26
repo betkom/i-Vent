@@ -1,6 +1,37 @@
 <section data-ng-controller="HomeController">
 	<div class="text-center">
-		<img src="../modules/core/img/home.jpg" class="home">
+		<div id="this-carousel-id" class="carousel slide"><!-- class of slide for animation -->
+		  <div class="carousel-inner">
+		    <div class="item active home" id="one"><!-- class of active since it's the first item -->
+		      <img src="../modules/core/img/33H.jpg">
+		      <div class="carousel-caption">
+		        <p>Caption text here</p>
+		      </div>
+		    </div>
+		    <div class="item home" id="two">
+		      <img src="../modules/core/img/63H.jpg">
+		      <div class="carousel-caption">
+		        <p>Caption text here</p>
+		      </div>
+		    </div>
+		    <div class="item home" id="three">
+		      <img src="../modules/core/img/home.jpg">
+		      <div class="carousel-caption">
+		        <p>Caption text here</p>
+		      </div>
+		    </div>
+		    <div class="item home" id="four">
+		      <img src="../modules/core/img/140H.jpg">
+		      <div class="carousel-caption">
+		        <p>Caption text here</p>
+		      </div>
+		    </div>
+		  </div><!-- /.carousel-inner -->
+		  <!--  Next and Previous controls below
+		        href values must reference the id for this carousel -->
+		    <a class="carousel-control left" href="#this-carousel-id" data-slide="prev">&lsaquo;</a>
+		    <a class="carousel-control right" href="#this-carousel-id" data-slide="next">&rsaquo;</a>
+		</div><!-- /.carousel -->
 	</div>
 	<div class="row text-center blue">
 		<p>If i-Vent Cannot Take Care Of You, Nobody Can....</p>
@@ -68,3 +99,12 @@
 		<br>&copy;2014 The i-Vent Team | Andela
 	</div>
 </section>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="js/jquery-1.7.2.min.js"><\/script>')</script>
+<script>
+  $(document).ready(function(){
+    $('.carousel').carousel({
+      interval: 2000
+    });
+  });
+</script>

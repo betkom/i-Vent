@@ -6,13 +6,13 @@ module.exports = {
 		title: 'i-Vent - Development Environment'
 	},
 	facebook: {
-		clientID: process.env.FACEBOOK_ID || 'APP_ID',
-		clientSecret: process.env.FACEBOOK_SECRET || 'APP_SECRET',
+		clientID: process.env.FACEBOOK_ID || '496228153812891',
+		clientSecret: process.env.FACEBOOK_SECRET || '486a21f938778805eed3876eab81146e',
 		callbackURL: 'http://localhost:3000/auth/facebook/callback'
 	},
 	twitter: {
-		clientID: process.env.TWITTER_KEY || 'CONSUMER_KEY',
-		clientSecret: process.env.TWITTER_SECRET || 'CONSUMER_SECRET',
+		clientID: process.env.TWITTER_KEY || 'WouoNmIENptUES2p1d7BkoeFx',
+		clientSecret: process.env.TWITTER_SECRET || 'xY5jjnmzLHz2yz8th5yYRlW3kHplAnHEdVxUY4t2Kbpsnid0Hm',
 		callbackURL: 'http://localhost:3000/auth/twitter/callback'
 	},
 	google: {

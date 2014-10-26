@@ -12,9 +12,8 @@ var mongoose = require('mongoose'),
  * Create a Subscribedcategory
  */
 exports.create = function(req, res) {
-    var subscribedcategory = new Subscribedcategory(req.body);
-    subscribedcategory.user = req.user;
-
+	var subscribedcategory = new Subscribedcategory(req.body);
+	subscribedcategory.users = [];
     subscribedcategory.save(function(err) {
         if (err) {
             return res.status(400).send({
@@ -72,16 +71,15 @@ exports.delete = function(req, res) {
 /**
  * List of Subscribedcategories
  */
-exports.list = function(req, res) {
-    Subscribedcategory.find().sort('-created').populate('user', 'displayName').exec(function(err, subscribedcategories) {
-        if (err) {
-            return res.status(400).send({
-                message: errorHandler.getErrorMessage(err)
-            });
-        } else {
-            res.jsonp(subscribedcategories);
-        }
-    });
+exports.list = function(req, res) { Subscribedcategory.find().sort('-created').exec(function(err, subscribedcategories) {
+		if (err) {
+			return res.status(400).send({
+				message: errorHandler.getErrorMessage(err)
+			});
+		} else {
+			res.jsonp(subscribedcategories);
+		}
+	});
 };
 
 /**

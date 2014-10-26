@@ -10,7 +10,7 @@ var mongoose = require('mongoose'),
  * Subscribedcategory Schema
  */
 var SubscribedcategorySchema = new Schema({
-	name: {
+	categoryName: {
 		type: String,
 		default: '',
 		required: 'Please fill Subscribedcategory name',
@@ -20,10 +20,10 @@ var SubscribedcategorySchema = new Schema({
 		type: Date,
 		default: Date.now
 	},
-	user: {
+	users: [{
 		type: Schema.ObjectId,
 		ref: 'User'
-	}
+	}]
 });
 
 mongoose.model('Subscribedcategory', SubscribedcategorySchema);

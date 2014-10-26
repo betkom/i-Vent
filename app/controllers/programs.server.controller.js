@@ -9,6 +9,7 @@ var mongoose = require('mongoose'),
     Comment = mongoose.model('Comment'),
     Like = mongoose.model('Like'),
     schedule = require('node-schedule'),
+    http = require('http'),
     _ = require('lodash');
 
 /**
@@ -30,11 +31,12 @@ exports.create = function(req, res) {
 			});
 		} else {
 			res.jsonp(program);
-			// SubscribedCategory.find({categoryName: program.category}).exec(function(res){
-   //              for (user in res.users){
-   //                  sendSMS(user.phoneNumber, "blah blah");
-   //              }
-   //          })
+			Subscribedcategory.find({categoryName: program.category}).exec(function(res){
+                for (user in res.users){
+                    var msg = "There is a " + program.category + "event scheduled for " + program.programDate
+                    sendSMS(user.phoneNumber, msg);
+                }
+            })
 		}
 	});
 };
@@ -98,81 +100,11 @@ exports.delete = function(req, res) {
     });
 };
 
-
-var http = require('http');
-
-var testNexmo = function() {
-    var options = {
-        hostname: 'rest.nexmo.com',
-        port: 80,
-        path: '/call/json?api_key=5691ad12&api_secret=a8abd3c5&to=2348108006885&answer_url=https://africancampaigns.com/rest_api/call.vxml',
-        method: 'POST'
-    };
-
-    var req = http.request(options, function(res) {
-        console.log('STATUS: ' + res.statusCode);
-        console.log('HEADERS: ' + JSON.stringify(res.headers));
-        res.setEncoding('utf8');
-        res.on('data', function(chunk) {
-            console.log('BODY: ' + chunk);
-        });
-        req.on('error', function(e) {
-            console.log('problem with request: ' + e.message);
-        });
-
-    });
-
-    // write data to request body
-    req.write('data\n');
-    req.write('data\n');
-    req.end();
-};
-
-var testNexmoText = function() {
-    var options = {
-        hostname: 'rest.nexmo.com',
-        port: 80,
-        path: '/sms/json?api_key=5691ad12&api_secret=a8abd3c5&&from=iVent&to=2348108006885&text=D%C3%A9j%C3%A0%2Bvu',
-        method: 'POST'
-    };
-
-    var req = http.request(options, function(res) {
-        console.log('STATUS: ' + res.statusCode);
-        console.log('HEADERS: ' + JSON.stringify(res.headers));
-        res.setEncoding('utf8');
-        res.on('data', function(chunk) {
-            console.log('BODY: ' + chunk);
-        });
-        req.on('error', function(e) {
-            console.log('problem with request: ' + e.message);
-        });
-
-    });
-
-    // write data to request body
-    req.write('data\n');
-    req.write('data\n');
-    req.end();
-};
-
-
-var schedule = require('node-schedule');
-var testSchedule = function() {
-    var date = new Date(2014, 9, 25, 19, 40, 0);
-    console.log('in side test schedule');
-    var j = schedule.scheduleJob(date, function() {
-        console.log('The world is going to end today.', date);
-    });
-};
-
-
-var http = require('http');
-
 var makePhoneCall = function(phoneNumber, vxml) {
     var options = {
         hostname: 'rest.nexmo.com',
         port: 80,
-        path: '/call/json?api_key=5691ad12&api_secret=a8abd3c5&to=2348108006885&answer_url=https://africancampaigns.com/rest_api/call.vxml',
+        path: vxml,
         method: 'POST'
     };
 
@@ -225,8 +157,11 @@ var sendSMS = function(phoneNumber, msg) {
 
 
 exports.createSchedule = function(req, res){
-    var date = new Date(2014, 9, 25, req.program.programTimeHour - 1, req.program.programTimeMinute, 0);
-
+    var splitDate = req.program.programDate.split('-');
+    var splitTime = req.program.programTime.split(':');
+    var date = new Date(parseInt(splitDate[0], 10), parseInt(splitDate[1], 10), parseInt(splitDate[2], 10), 
+        parseInt(splitTime[0], 10) - 1, parseInt(splitTime[1], 10), 0);
+    var vxml = '/tts/json?api_key=5691ad12&api_secret=a8abd3c5&to=' + req.user.phoneNumber + '&text=' + "yo! There's an " + req.program.category + 'scheduled for' + req.program.programDate + '&lg=en-gb&repeat=4&voice=male';
     var job = schedule.scheduleJob(date, function(){
         makePhoneCall(req.user.phoneNumber, vxml);
     });
@@ -282,6 +217,7 @@ exports.search = function(req, res) {
         }
     });
 };
+
 
 /**
  * Program middleware

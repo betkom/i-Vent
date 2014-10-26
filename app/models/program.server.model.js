@@ -22,7 +22,6 @@ var ProgramSchema = new Schema({
         required: 'Please fill date in this format yyyy/mm/dd',
         trim: true
     },
-
     programTime: {
         type: String,
         default: '',
@@ -40,7 +39,6 @@ var ProgramSchema = new Schema({
         required: 'Please fill a description',
         trim: true
     },
-
     location: {
         type: String,
         default: '',

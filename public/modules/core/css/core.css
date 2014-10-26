@@ -68,12 +68,9 @@ h1, h2, h3 {
 .pad-div {
     margin: 0 16%;
 }
-.nav-style {
-	border-bottom: rgb(59,135,124);
-	border-bottom-width: 5px;
-	border-bottom-style: solid;
-	width: 100%;
-	padding: 0 30px;
+.background-style {
+	height: 100vh;
+	background: url('modules/core/img/33H.jpg');
 }
 .navigate {
     border-top: rgb(59, 135, 124);
@@ -102,6 +99,7 @@ h1, h2, h3 {
 .events-pages {
 	background: rgb(59,210,172);
 	padding: 5%;
+	overflow: auto;
 }
 .reg-form {
     background: rgb(45, 62, 82);

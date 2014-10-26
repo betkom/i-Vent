@@ -32,7 +32,11 @@ var ProgramSchema = new Schema({
 	programTimeHour: {
 	type: String,
 	default: '',
+<<<<<<< HEAD
 	// required: 'Please fill minutes mm',
+=======
+	required: 'Please fill hour hh',
+>>>>>>> a7ed10675448732fadd741f7d1330d00b685f3c0
 	trim: true
 	},
 

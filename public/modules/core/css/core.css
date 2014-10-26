@@ -25,41 +25,41 @@
 }
 
 .content {
-	margin-top: 50px;
+    margin-top: 50px;
 }
 .undecorated-link:hover {
-	text-decoration: none;
+    text-decoration: none;
 }
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
-	display: none !important;
+    display: none !important;
 }
-.ng-invalid.ng-dirty{
-    border-color:#FA787E;
+.ng-invalid.ng-dirty {
+    border-color: #FA787E;
 }
-.ng-valid.ng-dirty{
-    border-color:#78FA89;
+.ng-valid.ng-dirty {
+    border-color: #78FA89;
 }
 .home {
-	width: 100%;
-	height: 70vh;
+    width: 100%;
+    height: 70vh;
 }
 .blue {
-	color: white;
-	background: rgb(50,139,129);
-	padding: 20px;
+    color: white;
+    background: rgb(50, 139, 129);
+    padding: 20px;
 }
 .pad {
-	padding: 30px;
+    padding: 30px;
 }
 .pad-small {
-	background: rgb(46,122,129);
-	padding: 15px;
+    background: rgb(46, 122, 129);
+    padding: 15px;
 }
 .pad-small:hover {
-	background: rgb(81,161,228);
+    background: rgb(81, 161, 228);
 }
 .pad-div {
-	margin: 0 16%;
+    margin: 0 16%;
 }
 .nav-style {
 	border-bottom: rgb(59,135,124);
@@ -69,50 +69,50 @@
 	padding: 0 30px;
 }
 .navigate {
-	border-top: rgb(59,135,124);
-	border-top-width: 5px;
-	border-top-style: solid;
-	background: white;
+    border-top: rgb(59, 135, 124);
+    border-top-width: 5px;
+    border-top-style: solid;
+    background: white;
 }
 .how-it-works {
-	background: rgb(122,132,136);
+    background: rgb(122, 132, 136);
 }
 .how {
-	border-left: rgb(59,135,124);
-	border-left-width: 5px;
-	border-left-style: solid;
+    border-left: rgb(59, 135, 124);
+    border-left-width: 5px;
+    border-left-style: solid;
 }
 .how li {
-	list-style: none;
+    list-style: none;
 }
 .expo {
-	padding: 20px;
+    padding: 20px;
 }
 .expo:hover {
-	background: rgb(203,208,211);
-	color: white;
+    background: rgb(203, 208, 211);
+    color: white;
 }
 .events-pages {
 	background: rgb(59,210,172);
 	padding: 5%;
 }
 .reg-form {
-	background: rgb(45,62,82);
-	padding: 5%;
-	border-radius: 5px;
-	color: white;
+    background: rgb(45, 62, 82);
+    padding: 5%;
+    border-radius: 5px;
+    color: white;
 }
 .input-border {
-	border: solid 2px rgb(40,55,75);
-	background: rgb(53,73,96);
-	color: grey;
+    border: solid 2px rgb(40, 55, 75);
+    background: rgb(53, 73, 96);
+    color: grey;
 }
 .foot {
-	border-top: rgb(59,135,124);
-	border-top-width: 5px;
-	border-top-style: solid;
-	color: white;
-	background: rgb(21,21,21);
+    border-top: rgb(59, 135, 124);
+    border-top-width: 5px;
+    border-top-style: solid;
+    color: white;
+    background: rgb(21, 21, 21);
 }
 
 

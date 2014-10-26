@@ -88,6 +88,9 @@ h1, h2, h3 {
 .pad-div {
     margin: 0 16%;
 }
+.pad-divs {
+	margin: 0 10%;
+}
 .nav-style {
     border-bottom: rgb(59, 135, 124);
     border-bottom-width: 5px;
@@ -121,8 +124,14 @@ h1, h2, h3 {
     color: #34495e;
 }
 .events-pages {
+<<<<<<< HEAD
+	background: rgb(59,210,172);
+	padding: 5%;
+	overflow: auto;
+=======
     background: rgb(59, 210, 172);
     padding: 5%;
+>>>>>>> 01a60e2b401adef0d5e410e12a53fc02731e9a45
 }
 .reg-form {
     background: #eee;

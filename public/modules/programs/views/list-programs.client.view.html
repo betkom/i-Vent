@@ -3,7 +3,8 @@
         <h1>Programs</h1>
     </div>
     <div class="list-group">
-        <a data-ng-repeat="program in programs" data-ng-href="#!/programs/{{program._id}}" class="list-group-item">
+        <div class="row col-md-12"></div>
+        <a data-ng-repeat="program in programs" data-ng-href="#!/programs/{{program._id}}" class="list-group-item col-md-3">
 			<small class="list-group-item-text">
 				Posted on
 				<span data-ng-bind="program.created | date:'medium'"></span>

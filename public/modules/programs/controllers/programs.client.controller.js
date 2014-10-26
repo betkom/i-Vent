@@ -5,6 +5,7 @@ angular.module('programs').controller('ProgramsController', ['$scope', '$statePa
 	function($scope, $stateParams, $location, Authentication, Programs, ProgramsComment, Comments, ProgramsLike, Likes ) {
 		$scope.authentication = Authentication;
 		var geocoder;
+        $scope.makeComment = false;
 
 		$scope.loadEvents = function(){
 
@@ -69,10 +70,10 @@ angular.module('programs').controller('ProgramsController', ['$scope', '$statePa
 				category: this.category,
 				location: this.location,
 				description: this.description,
-				programTime: this.programTime,
+				programTimeHour: this.programTimeHour,
 				programDate: this.programDate
 			});
-				program.image = $scope.stringFiles;
+				// program.image = $scope.stringFiles;
 			// Redirect after save
 			program.$save(function(response) {
 				$location.path('programs/' + response._id);
@@ -189,6 +190,9 @@ angular.module('programs').controller('ProgramsController', ['$scope', '$statePa
             }, function(errorResponse) {
                 $scope.error = errorResponse.data.message;
             });
+        };
+        $scope.openCommentForm = function() {
+            $scope.makeComment = !$scope.makeComment;
         };
         $scope.doLike = function() {
             // Create new Like object

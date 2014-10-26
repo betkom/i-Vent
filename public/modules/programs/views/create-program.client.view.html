@@ -1,5 +1,5 @@
 <section data-ng-controller="ProgramsController">
-<div class="container reg-form">
+<div class="container reg-form col-md-8 pad-div">
     <div class="page-header">
         <h1>New Event</h1>
     </div>
@@ -13,7 +13,7 @@
                     </div>
                     <label class="control-label" for="category">Event Category</label>
                     <div class="controls">
-                        <select data-ng-model="category" id="category" placeholder="Choose Category" class="col-md-12">
+                        <select data-ng-model="category" id="category" placeholder="Choose Category" class="col-md-12 input-border">
                             <option value="Sports" selected>Sports</option>
                             <option value="Party">Party</option>
                             <option value="Launch">Launches</option>
@@ -37,7 +37,7 @@
                     </div>
                     <label class="control-label" for="programDate">Event Date</label>
                         <div class="row">
-                            <div class="col-md-8">
+                            <div class="col-md-12">
                                     <div class="input-group">
                                         <input type="text" data-ng-model="programDate" id="programDate" class="form-control input-border  datepicker" required datepicker-popup="{{format}}"is-open="opened" min-date="minDate" max-date="'2015-06-22'" datepicker-options="dateOptions" close-text="Close"/>
                                           <span class="input-group-btn">
@@ -48,7 +48,7 @@
                         </div>
                     <label class="control-label" for="time">Event Time</label>
                     <div class="controls">
-                        <input type="text" data-ng-model="programTime" id="time" class="form-control input-border" placeholder="00:00" required>
+                        <input type="text" data-ng-model="programTimeHour" id="time" class="form-control input-border" placeholder="00:00" required>
                     </div>
                     <label class="control-label" for="image">Event Image</label>
                     <input type="file" id="image" data-ng-file-select="onFileSelect($files)" accept="image/*">

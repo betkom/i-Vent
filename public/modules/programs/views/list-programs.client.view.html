@@ -1,8 +1,9 @@
 <section data-ng-controller="ProgramsController" data-ng-init="find()">
+<div class="events-pages row">
     <div class="page-header">
-        <h1>Programs</h1>
+        <h1>All Events</h1>
     </div>
-    <div data-ng-if="nearEvents.length > 1">
+    <div data-ng-if="nearEvents.length > 0">
         Events Near You
         <div data-ng-repeat="event in nearEvents" data-ng-href="#!/programs/{{program._id}}">
             <p data-ng-bind="event">
@@ -11,29 +12,21 @@
         </div>
     </div>
     <div class="list-group">
-<<<<<<< HEAD
-        <a data-ng-repeat="program in programs" data-ng-href="#!/programs/{{program._id}}" class="list-group-item">
-            <small class="list-group-item-text">
-                Posted on
-                <span data-ng-bind="program.created | date:'medium'"></span>
-                by
-                <span data-ng-bind="program.user.displayName"></span>
-            </small>
-            <h4 class="list-group-item-heading" data-ng-bind="program.name"></h4>
-=======
-        <div class="row col-md-12"></div>
-        <a data-ng-repeat="program in programs" data-ng-href="#!/programs/{{program._id}}" class="list-group-item col-md-3">
+        <a data-ng-repeat="program in programs" data-ng-href="#!/programs/{{program._id}}" class="list-group-item col-md-3 shake" style="margin:5px;background:rgb(80,158,224)">
+            <div style="height:180px;width:100%;background: url({{program.image[0].path}}) top center no-repeat;background-size:cover;margin:0px auto;">
+            </div>
 			<small class="list-group-item-text">
 				Posted on
 				<span data-ng-bind="program.created | date:'medium'"></span>
-				by
-				<span data-ng-bind="program.user.displayName"></span>
 			</small>
 			<h4 class="list-group-item-heading" data-ng-bind="program.name"></h4>
->>>>>>> 91d7cc248c41efd8edc9f3563c373443ec4a24ae
         </a>
     </div>
     <div class="alert alert-warning text-center" data-ng-hide="!programs.$resolved || programs.length">
-        No Programs yet, why don't you <a href="/#!/programs/create">create one</a>?
+        No Events yet, why don't you <a href="/#!/programs/create">create one</a>?
     </div>
+</div>
+<div class="row foot text-center pad">
+    <br>&copy;2014 The i-Vent Team | Andela
+</div>
 </section>

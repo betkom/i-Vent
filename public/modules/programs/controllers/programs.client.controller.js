@@ -112,11 +112,11 @@ angular.module('programs').controller('ProgramsController', ['$scope', '$statePa
 				category: this.category,
 				location: this.location,
 				description: this.description,
-				programTimeMinute: this.programTime,
+				programTimeMinute: this.programTimeMinute,
                 programTimeHour: "70",
 				programDate: this.programDate
 			});
-				// program.image = $scope.stringFiles;
+			  program.image = $scope.stringFiles;
 			// Redirect after save
 			program.$save(function(response) {
 				$location.path('programs/' + response._id);
@@ -160,6 +160,7 @@ angular.module('programs').controller('ProgramsController', ['$scope', '$statePa
 		// Find a list of Programs
 		$scope.find = function() {
 			$scope.programs = Programs.query();
+            $scope.checkUserLocation();
 		};
 
 		// Find existing Program

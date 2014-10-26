@@ -1,3 +1,28 @@
+@-webkit-keyframes spaceboots {
+	0% { -webkit-transform: translate(2px, 1px) rotate(0deg); }
+	10% { -webkit-transform: translate(-1px, -2px) rotate(-1deg); }
+	20% { -webkit-transform: translate(-3px, 0px) rotate(1deg); }
+	30% { -webkit-transform: translate(0px, 2px) rotate(0deg); }
+	40% { -webkit-transform: translate(1px, -1px) rotate(1deg); }
+	50% { -webkit-transform: translate(-1px, 2px) rotate(-1deg); }
+	60% { -webkit-transform: translate(-3px, 1px) rotate(0deg); }
+	70% { -webkit-transform: translate(2px, 1px) rotate(-1deg); }
+	80% { -webkit-transform: translate(-1px, -1px) rotate(1deg); }
+	90% { -webkit-transform: translate(2px, 2px) rotate(0deg); }
+	100% { -webkit-transform: translate(1px, -2px) rotate(-1deg); }
+}
+.shake:hover,
+.shake:focus {
+	-webkit-animation-name: spaceboots;
+	-webkit-animation-duration: 0.8s;
+	-webkit-transform-origin:50% 50%;
+	-webkit-animation-iteration-count: infinite;
+	-webkit-animation-timing-function: linear;
+}
+.shake {
+	display:inline-block
+}
+
 .content {
 	margin-top: 50px;
 }
@@ -59,6 +84,10 @@
 	background: rgb(203,208,211);
 	color: white;
 }
+.events-pages {
+	background: rgb(59,210,172);
+	padding: 5%;
+}
 .reg-form {
 	background: rgb(45,62,82);
 	padding: 5%;
@@ -76,4 +105,25 @@
 	border-top-style: solid;
 	color: white;
 	background: rgb(21,21,21);
+}
+
+
+.qrCode {
+    margin-top: 50px;
+}
+.qrCode1 {
+    width: 80%;
+    height: 60%;
+}
+/*******************
+	MAP CONTAINER
+*******************/
+
+.mapResult {
+    border: solid 1px gray;
+    height: 400px;
+    width: 80%;
+}
+.map h2 {
+    font-size: 1.5em;
 }
